@@ -1,0 +1,15 @@
+ARG ODOO_VERSION=14.0
+FROM odoo:${ODOO_VERSION}
+
+ARG DRIVER_VERSION=1.5.4.1002
+
+
+USER root
+
+RUN apt-get update && apt-get install -y --no-install-recommends wget alien python3-pyodbc &&\
+    wget "https://download.dremio.com/odbc-driver/${DRIVER_VERSION}/dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm" -O /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
+    alien -i --scripts /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
+    rm -f /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm && rm -rf /var/lib/apt/lists/*
+
+# user odoo
+USER odoo
