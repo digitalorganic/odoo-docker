@@ -1,0 +1,13 @@
+ARG ODOO_VERSION=14.0
+FROM odoo:${ODOO_VERSION}
+
+
+
+# go to root first for install apps
+USER root
+
+RUN apt-get update && apt-get install -y --no-install-recommends xfonts-thai && rm -rf /var/lib/apt/lists/*
+
+
+
+USER odoo
