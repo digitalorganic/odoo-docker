@@ -6,9 +6,11 @@ FROM odoo:${ODOO_VERSION}
 # go to root first for install apps
 USER root
 RUN pip3 install  dremio-client
+RUN pip3 install  jingtrang
+RUN pip3 install  pymongo
 
 ENV DRIVER_VERSION=1.5.4.1002
-RUN apt-get update && apt-get install -y --no-install-recommends vim unixodbc-dev wget alien python3-pyodbc python3-pip &&\
+RUN apt-get update && apt-get install -y --no-install-recommends default-jdk fonts-thai-tlwg vim unixodbc-dev wget alien python3-pyodbc python3-pip &&\
     wget --no-check-certificate "https://fileserv.do.co.th/static/files/dremio/2022/dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm" -O /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
     alien -i --scripts /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm &&\
     rm -f /dremio-odbc-${DRIVER_VERSION}-1.x86_64.rpm && rm -rf /var/lib/apt/lists/*
